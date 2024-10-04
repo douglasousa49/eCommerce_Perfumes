@@ -81,6 +81,9 @@
     <div class="form-container">
         <h2>Cadastrar Produto</h2>
         <form action="CadastrarProdutoServlet" method="post">
+            <label for="codigoProduto">Codigo do Produto</label>
+            <input type="text" id="codigoProduto" name="codigoProduto" required placeholder="Digite o codigo do produto">
+
             <label for="nome">Nome do Produto</label>
             <input type="text" id="nome" name="nome" required placeholder="Digite o nome do produto">
 
