@@ -11,6 +11,7 @@ public class CadastrarProdutoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Obtendo os parâmetros do formulário
+        String codigoProduto = request.getParemeter("codigoProduto");
         String nome = request.getParameter("nome");
         String descricao = request.getParameter("descricao");
         double preco = Double.parseDouble(request.getParameter("preco"));
