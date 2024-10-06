@@ -1,4 +1,3 @@
-page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,7 +5,6 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manutenção de Clientes</title>
     <style>
-       
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -24,13 +22,13 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        th, td {
+        th, td, {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        th {
-            background-color: #4CAF50;
+        th, h1 {
+            background-color: #363636;
             color: white;
         }
         tr:hover {
@@ -53,7 +51,22 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
         .add-btn {
             background-color: #2ecc71;
             color: white;
-            display: block;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-btn {
+            background-color: #808080;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
             margin-bottom: 15px;
         }
         .disabled-btn {
@@ -66,9 +79,11 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
 <body>
     <h1>Manutenção de Clientes</h1>
 
-    
-<c:if test="${userRole == 'ADMIN'}">
-        <button class="add-btn" onclick="window.location.href='ClienteServlet?action=add'">Incluir Novo Cliente</button>
+    <c:if test="${userRole == 'ADMIN'}">
+        <div class="button-container">
+            <button class="add-btn" onclick="window.location.href='CadastrarClientes.jsp'">Incluir Novo Cliente</button>
+            <button class="search-btn" onclick="window.location.href='ConsultarClientes.jsp'">Consultar Cliente</button>
+        </div>
     </c:if>
 
     <table>
@@ -92,11 +107,10 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
                     <td>
                         <%-- Botão de editar habilitado para Clientes e Administradores --%>
                         <button class="action-btn edit-btn"
-                                onclick="window.location.href='ClienteServlet?action=edit&id=${cliente.id}'"
-                                <c:if test="${userRole == 'CLIENT' && userId != cliente.id}"> disabled </c:if>>
+                                onclick="window.location.href='ClienteServlet?action=edit&id=${cliente.id}'">
+                            <c:if test="${userRole == 'CLIENT' && userId != cliente.id}"></c:if>
                             Editar
                         </button>
-                        
                         <%-- Botão de excluir somente para Administradores --%>
                         <c:if test="${userRole == 'ADMIN'}">
                             <button class="action-btn delete-btn"
@@ -110,9 +124,7 @@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
         </tbody>
     </table>
 
-   
     <c:if test="${clientes.size() == 0}">
-        <p>Nenhum cliente encontrado.</p>
     </c:if>
 </body>
 </html>
