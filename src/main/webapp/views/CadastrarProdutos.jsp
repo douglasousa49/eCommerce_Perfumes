@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Produto</title>
+    <title>Cadastrar Produtos</title>
     <style>
         /* Estilos para o formulário */
         body {
@@ -58,7 +58,7 @@
 
         /* Estilos para o botão */
         button {
-            width: 100%;
+            width: 106%;
             background-color: #5d3ebc;
             color: white;
             padding: 10px;
@@ -66,6 +66,7 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
+            margin: 10px 0;
         }
 
         button:hover {
@@ -79,27 +80,26 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Cadastrar Produto</h2>
-        <form action="CadastrarProdutoServlet" method="post">
+        <h2>Cadastrar Produtos</h2>
+        <form action="${pageContext.request.contextPath}/CadastrarProdutos" method="post">
+
             <label for="codigoProduto">Codigo do Produto</label>
             <input type="text" id="codigoProduto" name="codigoProduto" required placeholder="Digite o codigo do produto">
 
-            <label for="nome">Nome do Produto</label>
-            <input type="text" id="nome" name="nome" required placeholder="Digite o nome do produto">
+            <label for="nomeProduto">Nome do Produto</label>
+            <input type="text" id="nomeProduto" name="nomeProduto" required placeholder="Digite o nome do produto">
 
             <label for="descricao">Descrição</label>
             <input type="text" id="descricao" name="descricao" required placeholder="Digite uma breve descrição">
 
             <label for="preco">Preço (R$)</label>
-            <input type="text" id="preco" name="preco" required placeholder="Ex: 99,99">
+            <input type="number" id="preco" name="preco" required placeholder="Ex: 99,99">
 
             <label for="quantidade">Quantidade</label>
             <input type="number" id="quantidade" name="quantidade" required placeholder="Digite a quantidade disponível">
 
-            <button type="submit">Cadastrar Produto</button>
+            <button type="submit">Cadastrar Produtos</button>
         </form>
-        <h3>Lista de Produtos</h3>
-        <!-- Aqui você pode listar os produtos com opções de alterar/excluir -->
     </div>
 </body>
 </html>

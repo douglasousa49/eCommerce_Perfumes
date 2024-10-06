@@ -1,27 +1,25 @@
-package Servlet;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+package br.com.eCommerce_Perfumes.Servlet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String senha = req.getParameter("senha");
 
-        // Validação dos dados de login
         if (isAdmin(email, senha)) {
-            // Se for o administrador, redireciona para a página de gerenciamento de produtos
-            resp.sendRedirect(req.getContextPath() + "/CadastrarProdutos.jsp");
+            resp.sendRedirect(req.getContextPath() + "/views/CadastrarProdutos.jsp");
         } else {
-            // Se não for o administrador, redireciona para a página de produtos
-            resp.sendRedirect(req.getContextPath() + "/produtos.jsp");
+            resp.sendRedirect(req.getContextPath() + "/views/produtos.jsp");
         }
     }
 
-    // Função para verificar se o usuário é administrador
     private boolean isAdmin(String email, String senha) {
         String adminEmail = "admin@cosmeticos.com";
         String adminSenha = "adm123";
