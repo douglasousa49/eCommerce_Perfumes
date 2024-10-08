@@ -24,6 +24,7 @@ h1 {
 
 .menu {
 	display: flex;
+	 
 	flex-direction: column;
 	align-items: center;
 }

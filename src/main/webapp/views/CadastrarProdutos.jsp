@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,11 +18,16 @@
         .form-container {
             background-color: #fff;
             padding: 30px;
+            padding-right: 53px;
             border-radius: 20px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 400px;
             width: 100%;
         }
+        
+        h2 {
+    		text-align: center;
+		}
 
         label {
             font-size: 1rem;

@@ -35,7 +35,7 @@
         
         /* Estilos para o botão */
         button {
-            width: 106%;
+            width: 100%;
             background-color: #5d3ebc;
             color: white;
             padding: 10px;
@@ -63,7 +63,8 @@
         <p>Preço: R$ ${preco}</p>
         <p>Quantidade: ${quantidade}</p>
 
-        <p><a class="button" href="views/CadastrarProdutos.jsp">Cadastrar novo produto</a></p>
+        <button onclick="window.location.href='views/CadastrarProdutos.jsp'">Cadastrar novo produto</button>
+        <button onclick="window.location.href='views/menu.jsp'">Página Inicial</button>
     </div>
 </body>
 </html>

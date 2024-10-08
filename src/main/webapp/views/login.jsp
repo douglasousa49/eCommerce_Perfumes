@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <style>
-        /* Estilos para o formulário */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f2f5;
@@ -14,7 +13,6 @@
             align-items: center;
             height: 100vh;
         }
-
         .form-container {
             background-color: #fff;
             padding: 30px;
@@ -25,7 +23,6 @@
             width: 100%;
             text-align: center;
         }
-
         label {
             font-size: 1rem;
             display: block;
@@ -33,7 +30,6 @@
             text-align: left;
             width: 100%;
         }
-
         input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -42,12 +38,6 @@
             border-radius: 5px;
             font-size: 1rem;
         }
-
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #5d3ebc;
-            outline: none;
-        }
-
         button {
             width: 106%;
             background-color: #5d3ebc;
@@ -59,13 +49,8 @@
             cursor: pointer;
             margin: 10px 0;
         }
-
         button:hover {
             background-color: #4a2ea3;
-        }
-
-        button:active {
-            transform: translateY(1px);
         }
     </style>
 </head>
@@ -75,13 +60,22 @@
         <form action="${pageContext.request.contextPath}/login" method="post">
             <label for="email">E-mail</label>
             <input type="text" id="email" name="email" required placeholder="Digite seu e-mail">
-
-            <label for="senha">Senha: </label>
+            <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required placeholder="Digite sua senha" />
-
             <button type="submit">Confirmar</button>
             <button type="button" onclick="window.location.href='CadastrarClientes.jsp'">Cadastrar</button>
         </form>
+        
+        <% 
+        	// Verifica se o parâmetro "error" está presente na solicitação
+        	String error = request.getParameter("error");
+        	if (error != null && error.equals("true")) { 
+    	%>
+        	<div style="color: red;">
+            	<p>Email e/ou senha inválidos. Tente novamente.</p>
+        	</div>
+    	<%}%>
+    
     </div>
 </body>
 </html>
