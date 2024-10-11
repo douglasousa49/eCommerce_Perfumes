@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Perfumaria</title>
+    <title>Comprar Produto</title>
     <style>
         /* Estilo geral da página */
         body {
@@ -57,11 +57,26 @@
         button:hover {
             background-color: #27ae60;
         }
+        a {
+            background-color: #5d3ebc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: 98%;
+        }
+        a:hover {
+            background-color: #27ae60;
+        }
     </style>
 </head>
 <body>
-    <h1>Selecionar Produto</h1>
-    <form action="PurchaseServlet" method="post">
+    <h1>Comprar Produtos</h1>
+    <form action="CarrinhoServlet" method="post">
         <table>
             <tr>
                 <th>Nome do Produto</th>
@@ -80,6 +95,7 @@
             </c:forEach>
         </table>
         <button type="submit">Comprar</button>
+        <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>    
     </form>
 </body>
 </html>

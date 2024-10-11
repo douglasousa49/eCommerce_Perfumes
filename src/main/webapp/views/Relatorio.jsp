@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -29,22 +30,39 @@
             border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #4CAF50;
+            background-color: #5d3ebc;
             color: white;
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-    </style>
+        button {
+            background-color: #5d3ebc;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .custom-label {
+    		background-color: #5d3ebc;
+    		color: white;
+    		padding: 10px 15px;
+    		border: none;
+    		border-radius: 4px;
+    		display: inline-block; /* Para garantir que o estilo se aplique corretamente */
+		}
+</style>
 </head>
 <body>
     <h1>Relatório Resumido</h1>
 
     <!-- Formulário para selecionar a data -->
     <form action="RelatorioServlet" method="get">
-        <label for="data">Selecione a data:</label>
-        <input type="date" id="data" name="data">
+        <label for="data" class="custom-label">Selecione a data:</label>
+		<input type="date" id="data" name="data">
         <button type="submit">Gerar Relatório</button>
+        <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
     </form>
 
     <!-- Tabela de resumo de vendas por cliente -->
@@ -52,7 +70,8 @@
         <thead>
             <tr>
                 <th>Cliente</th>
-                <th>Total de Compras</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
                 <th>Valor Total</th>
             </tr>
         </thead>
@@ -61,7 +80,8 @@
             <c:forEach items="${resumoVendas}" var="resumo">
                 <tr>
                     <td>${resumo.clienteNome}</td>
-                    <td>${resumo.totalCompras}</td>
+                    <td>${resumo.produto}</td>
+                    <td>${resumo.quantidade}</td>
                     <td>R$ ${resumo.valorTotal}</td>
                 </tr>
             </c:forEach>

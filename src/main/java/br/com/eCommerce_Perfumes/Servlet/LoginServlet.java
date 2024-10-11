@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/login")
+@WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             
         } else {
             // Se o login falhar, você pode redirecionar para a página de login novamente
-            resp.sendRedirect(req.getContextPath() + "/views/login.jsp?error=true");
+            resp.sendRedirect(req.getContextPath() + "/views/Login.jsp?error=true");
         }
     }
 

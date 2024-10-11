@@ -17,7 +17,7 @@
         }
         h1 {
             color: #5d3ebc;
-            margin-bottom: 30px;
+            margin-bottom: 30px; 
         }
         .menu {
             display: flex;
@@ -49,21 +49,21 @@
 
             if ("ADMIN".equals(userRole)) {
         %>
-        	<a href="CadastrarProdutos.jsp">Cadastrar Produtos</a>
-        	<a href="CadastrarClientes.jsp">Cadastrar Clientes</a>
-        	<a href="ManutencaoClientes.jsp">Manutenção Clientes</a>
-            <a href="produtos.jsp">Visualizar Produtos</a>
-            <a href="RelatorioDetalhado.jsp">Gerar Relatório</a>
+        	<a href="CadastrarProduto.jsp">Cadastrar Produtos</a>
+        	<a href="CadastrarCliente.jsp">Cadastrar Clientes</a>
+        	<a href="ManutencaoCliente.jsp">Manutenção Clientes</a>
+        	<a href="ManutencaoProduto.jsp">Manutenção Produtos</a>
+            <a href="Relatorio.jsp">Gerar Relatório</a>
+            <a href="RelatorioDetalhado.jsp">Gerar Relatório Detalhado</a>
         <%
             } else if ("CLIENT".equals(userRole)) {
         %>
-            <a href="CadastrarClientes.jsp">Cadastre-se</a>
-            <a href="comprarProdutos.jsp">Comprar Produtos</a>
-            <a href="produtos.jsp">Visualizar Produtos</a>
+            <a href="CarrinhoCompra.jsp">Carrinho de Compras</a>
+            <a href="SelecionarProduto.jsp">Comprar Produtos</a>
         <%
             } else {
         %>
-            <a href="login.jsp">Login</a>
+            <a href="Login.jsp">Login</a>
         <%
             }
         %>

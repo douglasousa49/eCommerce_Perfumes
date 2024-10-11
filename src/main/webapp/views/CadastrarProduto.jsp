@@ -85,7 +85,7 @@
 <body>
     <div class="form-container">
         <h2>Cadastrar Produtos</h2>
-        <form action="${pageContext.request.contextPath}/CadastrarProdutos" method="post">
+        <form action="${pageContext.request.contextPath}/CadastrarProduto" method="post">
 
             <label for="codigoProduto">Codigo do Produto</label>
             <input type="text" id="codigoProduto" name="codigoProduto" required placeholder="Digite o codigo do produto">
@@ -103,6 +103,7 @@
             <input type="number" id="quantidade" name="quantidade" required placeholder="Digite a quantidade disponível">
 
             <button type="submit">Cadastrar Produtos</button>
+            <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
         </form>
     </div>
 </body>

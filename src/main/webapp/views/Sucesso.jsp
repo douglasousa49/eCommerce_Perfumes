@@ -63,8 +63,8 @@
         <p>Preço: R$ ${preco}</p>
         <p>Quantidade: ${quantidade}</p>
 
-        <button onclick="window.location.href='views/CadastrarProdutos.jsp'">Cadastrar novo produto</button>
-        <button onclick="window.location.href='views/menu.jsp'">Página Inicial</button>
+        <button onclick="window.location.href='views/CadastrarProduto.jsp'">Cadastrar novo produto</button>
+        <button type="button" onclick="window.location.href='views/Index.jsp'">Página Incial</button>
     </div>
 </body>
 </html>

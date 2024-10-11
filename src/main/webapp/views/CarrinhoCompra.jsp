@@ -41,7 +41,7 @@
         }
 
         input[type="text"], input[type="number"] {
-            width: 100%;
+            width: 94%;
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -69,6 +69,7 @@
         button {
             width: 100%;
             background-color: #5d3ebc;
+            margin-bottom: 10px;
             color: white;
             padding: 10px;
             border: none;
@@ -87,21 +88,17 @@
     </style>
 </head>
 <body>
-    <h2>Selecione seus Produtos</h2>
-    <c:forEach var="produto" items="${listaProdutos}">
+    <h2>Carrinho de Compras</h2>
         <div class="produto">
-            <p><strong>Nome:</strong> ${produto.nome}</p>
-            <p><strong>Preço:</strong> R$ ${produto.preco}</p>
-            <p><strong>Estoque:</strong> ${produto.estoque}</p>
-            <c:if test="${produto.estoque > 0}">
-                <form action="CarrinhoServlet" method="post">
-                    <input type="hidden" name="idProduto" value="${produto.id}">
-                    <label for="quantidade">Quantidade:</label>
-                    <input type="number" id="quantidade" name="quantidade" min="1" max="${produto.estoque}">
-                    <button type="submit">Adicionar ao Carrinho</button>
-                </form>
-            </c:if>
+            <p><strong>Nome:</strong></p>
+            <p><strong>Descrição:</strong></p>
+            <p><strong>Preço:</strong></p>
+            <p><strong>Quantidade:</strong></p>
+            
+            <form action="CarrinhoServlet" method="post">
+            <button type="submit">Ir para Pagamento</button>
+            <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
+            </form>
         </div>
-    </c:forEach>
 </body>
 </html>

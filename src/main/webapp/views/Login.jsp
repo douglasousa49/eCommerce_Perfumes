@@ -57,13 +57,13 @@
 <body>
     <div class="form-container">
         <h2>Faça seu login</h2>
-        <form action="${pageContext.request.contextPath}/login" method="post">
+        <form action="${pageContext.request.contextPath}/Login" method="post">
             <label for="email">E-mail</label>
             <input type="text" id="email" name="email" required placeholder="Digite seu e-mail">
             <label for="senha">Senha:</label>
             <input type="password" id="senha" name="senha" required placeholder="Digite sua senha" />
             <button type="submit">Confirmar</button>
-            <button type="button" onclick="window.location.href='CadastrarClientes.jsp'">Cadastrar</button>
+            <button type="button" onclick="window.location.href='CadastrarCliente.jsp'">Cadastrar</button>
         </form>
         
         <% 

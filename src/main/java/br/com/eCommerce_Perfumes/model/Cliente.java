@@ -1,6 +1,6 @@
 package br.com.eCommerce_Perfumes.model;
 
-public class Clientes {
+public class Cliente {
 
 	private int id;
 	private String nome;

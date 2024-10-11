@@ -85,7 +85,7 @@
         <form action="CadastrarClientesServlet" method="post">
         
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required placeholder="Digite o nome do produto">
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
 
             <label for="rg">RG:</label>
             <input type="text" id="rg" name="rg" required placeholder="Digite o RG:">
@@ -124,6 +124,7 @@
             <input type="text" id="uf" name="uf" required placeholder="Digite o UF:">
 
             <button type="submit">Cadastrar</button>
+            <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
         </form>
     </div>
 </body>

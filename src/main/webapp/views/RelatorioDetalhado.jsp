@@ -29,12 +29,28 @@
             border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #3498db;
+            background-color: #5d3ebc;
             color: white;
         }
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+        button {
+            background-color: #5d3ebc;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .custom-label {
+    		background-color: #5d3ebc;
+    		color: white;
+    		padding: 10px 15px;
+    		border: none;
+    		border-radius: 4px;
+    		display: inline-block; /* Para garantir que o estilo se aplique corretamente */
+		}
     </style>
 </head>
 <body>
@@ -42,14 +58,16 @@
 
     <!-- Seleciona a venda específica -->
     <form action="RelatorioServlet" method="get">
-        <label for="vendaId">Selecione a Venda:</label>
-        <select id="vendaId" name="vendaId">
+        <label for="vendaId" class="custom-label">Selecione a Venda:</label>
+		<select id="vendaId" name="vendaId">
+        
             <%-- Exibe as vendas disponíveis para seleção --%>
             <c:forEach items="${vendas}" var="venda">
                 <option value="${venda.id}">Venda ID: ${venda.id} - Cliente: ${venda.clienteNome}</option>
             </c:forEach>
         </select>
         <button type="submit">Ver Detalhes</button>
+        <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
     </form>
 
     <!-- Tabela de detalhes dos produtos da venda -->
@@ -57,6 +75,7 @@
         <thead>
             <tr>
                 <th>Produto</th>
+                <th>Descrição</th>
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
                 <th>Total</th>
@@ -67,6 +86,7 @@
             <c:forEach items="${detalhesProdutos}" var="produto">
                 <tr>
                     <td>${produto.nome}</td>
+                    <td>${produto.descricao}</td>
                     <td>${produto.quantidade}</td>
                     <td>R$ ${produto.precoUnitario}</td>
                     <td>R$ ${produto.quantidade * produto.precoUnitario}</td>
