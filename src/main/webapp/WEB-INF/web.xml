@@ -14,4 +14,24 @@
     <servlet-name>ManutencaoProduto</servlet-name>
     <url-pattern>/ManutencaoProduto</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CadastrarCliente</display-name>
+    <servlet-name>CadastrarCliente</servlet-name>
+    <servlet-class>br.com.eCommerce_Perfumes.Servlet.CadastrarCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CadastrarCliente</servlet-name>
+    <url-pattern>/CadastrarCliente</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ManutencaoCliente</display-name>
+    <servlet-name>ManutencaoCliente</servlet-name>
+    <servlet-class>br.com.eCommerce_Perfumes.Servlet.ManutencaoCliente</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ManutencaoCliente</servlet-name>
+    <url-pattern>/ManutencaoCliente</url-pattern>
+  </servlet-mapping>
 </web-app>
