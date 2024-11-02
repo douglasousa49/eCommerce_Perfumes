@@ -124,7 +124,8 @@
             <input type="text" id="uf" name="uf" required placeholder="Digite o UF:">
 
             <button type="submit">Cadastrar</button>
-            <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
+            <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>
+            
         </form>
     </div>
 </body>

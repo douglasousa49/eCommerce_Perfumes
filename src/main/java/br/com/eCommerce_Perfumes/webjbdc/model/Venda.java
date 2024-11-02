@@ -1,8 +1,8 @@
-package br.com.eCommerce_Perfumes.model;
+package br.com.eCommerce_Perfumes.webjbdc.model;
 
 import java.util.Date;
 
-public class Pedido {
+public class Venda {
 	
 	private int id;
 	private int clienteID;

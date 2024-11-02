@@ -1,4 +1,4 @@
-package br.com.eCommerce_Perfumes.webjdbc.utils;
+package br.com.eCommerce_Perfumes.webjbdc.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

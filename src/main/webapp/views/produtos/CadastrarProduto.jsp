@@ -103,7 +103,7 @@
             <input type="number" id="quantidade" name="quantidade" required placeholder="Digite a quantidade disponível">
 
             <button type="submit">Cadastrar Produtos</button>
-            <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
+            <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>
         </form>
     </div>
 </body>

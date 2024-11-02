@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="java.util.List" %>
-<%@ page import="br.com.eCommerce_Perfumes.model.Produto" %>
+<%@ page import="br.com.eCommerce_Perfumes.webjbdc.model.Produto" %>
 
 <%
     // Verificar se o usuário está logado e se possui o papel ADMIN
@@ -105,7 +105,7 @@
     <div class="button-container">
         <button class="add-btn" onclick="window.location.href='CadastrarCliente.jsp'">Incluir Novo Cliente</button>
         <button class="search-btn" onclick="window.location.href='CadastrarCliente.jsp'">Consultar Cliente</button>
-        <button type="button" onclick="window.location.href='Index.jsp'">Página Incial</button>
+        <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>
     </div>
 
     <table>

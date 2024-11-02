@@ -49,10 +49,10 @@
 
             if ("ADMIN".equals(userRole)) {
         %>
-        	<a href="CadastrarProduto.jsp">Cadastrar Produtos</a>
-        	<a href="CadastrarCliente.jsp">Cadastrar Clientes</a>
-        	<a href="ManutencaoCliente.jsp">Manutenção Clientes</a>
-        	<a href="ManutencaoProduto.jsp">Manutenção Produtos</a>
+        	<a href="produtos/CadastrarProduto.jsp">Cadastrar Produtos</a>
+        	<a href="clientes/CadastrarCliente.jsp">Cadastrar Clientes</a>
+        	<a href="clientes/ManutencaoCliente.jsp">Manutenção Clientes</a>
+        	<a href="produtos/ManutencaoProduto.jsp">Manutenção Produtos</a>
             <a href="Relatorio.jsp">Gerar Relatório</a>
             <a href="RelatorioDetalhado.jsp">Gerar Relatório Detalhado</a>
         <%

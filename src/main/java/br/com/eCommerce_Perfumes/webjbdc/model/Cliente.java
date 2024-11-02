@@ -1,4 +1,4 @@
-package br.com.eCommerce_Perfumes.model;
+package br.com.eCommerce_Perfumes.webjbdc.model;
 
 public class Cliente {
 
