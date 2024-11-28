@@ -34,7 +34,7 @@ public class ProdutoController extends HttpServlet {
         try {
             switch (action) {
                 case "/produtos/novo":
-                    novoForm(request, response);
+                    inserir(request, response);
                     break;
                 case "/produtos/listar":
                     listar(request, response);
@@ -78,11 +78,6 @@ public class ProdutoController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void novoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/produtos/produto-cadastro.jsp");
-        dispatcher.forward(request, response);
-    }
-
     private void editarForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("codigoProduto"));
@@ -94,32 +89,34 @@ public class ProdutoController extends HttpServlet {
 
     private void inserir(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     	
-        String nome = request.getParameter("nome");
+    	int codigoProduto = Integer.parseInt(request.getParameter("codigoProduto"));
+        String nomeProduto = request.getParameter("nomeProduto");
         String descricao = request.getParameter("descricao");
         double preco = Double.parseDouble(request.getParameter("preco"));
         int estoque = Integer.parseInt(request.getParameter("estoque"));
 
         Produto novoProduto = new Produto();
         
-        novoProduto.setNome(nome);
+        novoProduto.setCodigoProduto(codigoProduto);
+        novoProduto.setNomeProduto(nomeProduto);
         novoProduto.setDescricao(descricao);
         novoProduto.setPreco(preco);
         novoProduto.setEstoque(estoque);
 
         produtoDAO.inserir(novoProduto);
-        response.sendRedirect("listar");
+        response.sendRedirect(request.getContextPath() + "/views/produtos/ProdutoSucesso.jsp");
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int codigoProduto = Integer.parseInt(request.getParameter("codigoProduto"));
-        String nome = request.getParameter("nome");
+        String nomeProduto = request.getParameter("nomeProduto");
         String descricao = request.getParameter("descricao");
         double preco = Double.parseDouble(request.getParameter("preco"));
         int estoque = Integer.parseInt(request.getParameter("estoque"));
 
         Produto produtoAtualizar = new Produto();
         produtoAtualizar.setCodigoProduto(codigoProduto);
-        produtoAtualizar.setNome(nome);
+        produtoAtualizar.setNomeProduto(nomeProduto);
         produtoAtualizar.setDescricao(descricao);
         produtoAtualizar.setPreco(preco);
         produtoAtualizar.setEstoque(estoque);

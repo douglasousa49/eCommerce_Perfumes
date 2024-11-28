@@ -2,7 +2,8 @@ package br.com.eCommerce_Perfumes.webjbdc.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +35,7 @@ public class ClienteController extends HttpServlet {
 		try {
 			switch (action) {
 				case "/clientes/novo":
-					novoForm(request, response);
+					inserir(request, response);
 					break;
 				case "/clientes/listar":
 					listar(request, response);
@@ -70,19 +71,14 @@ public class ClienteController extends HttpServlet {
 		}
 	}
 
-	private void listar(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-
-		ArrayList<Cliente> listaClientes = clienteDAO.listar();
-		request.setAttribute("listaClientes", listaClientes);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/cliente-listar.jsp");
-		dispatcher.forward(request, response);
+	protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    ClienteDAO clienteDAO = new ClienteDAO();
+	    List<Cliente> listaClientes = clienteDAO.listar(); // Obtenha a lista
+	    request.setAttribute("listaClientes", listaClientes); // Atribua ao request
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/ManutencaoCliente.jsp"); // Caminho para a JSP
+	    dispatcher.forward(request, response); // Encaminhe para a página
 	}
 
-	private void novoForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/cliente-cadastro.jsp");
-		dispatcher.forward(request, response);
-	}
 
 	private void editarForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
@@ -90,45 +86,48 @@ public class ClienteController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Cliente clienteAlterar = clienteDAO.buscarPorId(id);
 		request.setAttribute("cliente", clienteAlterar);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/cliente-cadastro.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/CadastrarCliente.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void inserir(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		
-		String nome = request.getParameter("nome");
-		String rg = request.getParameter("rg");
-		String cpf = request.getParameter("cpf");
-		String email = request.getParameter("email");
-		String telefone = request.getParameter("telefone");
-		String celular = request.getParameter("celular");
-		String cep = request.getParameter("cep");
-		String endereco = request.getParameter("endereco");
-		int numero = Integer.parseInt(request.getParameter("numero"));
-		String complemento = request.getParameter("complemento");
-		String bairro = request.getParameter("bairro");
-		String cidade = request.getParameter("cidade");
-		String uf = request.getParameter("uf");
+	    Cliente novoCliente = new Cliente();
+	    
+	    // Coleta de todos os campos do formulário
+	    novoCliente.setNome(request.getParameter("nome"));
+	    novoCliente.setEmail(request.getParameter("email"));
+	    novoCliente.setSenha(request.getParameter("senha"));
+	    novoCliente.setRg(request.getParameter("rg"));
+	    novoCliente.setCpf(request.getParameter("cpf"));
+	    novoCliente.setTelefone(request.getParameter("telefone"));
+	    novoCliente.setCelular(request.getParameter("celular"));
+	    novoCliente.setCep(request.getParameter("cep"));
+	    novoCliente.setEndereco(request.getParameter("endereco"));
 
-		Cliente novoCliente = new Cliente();
-		
-		novoCliente.setNome(nome);
-		novoCliente.setRg(rg);
-		novoCliente.setCpf(cpf);
-		novoCliente.setEmail(email);
-		novoCliente.setTelefone(telefone);
-		novoCliente.setCelular(celular);
-		novoCliente.setCep(cep);
-		novoCliente.setEndereco(endereco);
-		novoCliente.setNumero(numero);
-		novoCliente.setComplemento(complemento);
-		novoCliente.setBairro(bairro);
-		novoCliente.setCidade(cidade);
-		novoCliente.setUf(uf);
+	    // Converte o valor de 'numero' para inteiro antes de passar para o setNumero
+	    String numeroStr = request.getParameter("numero");
+	    if (numeroStr != null && !numeroStr.isEmpty()) {
+	        try {
+	            int numero = Integer.parseInt(numeroStr);  // Converte a String para int
+	            novoCliente.setNumero(numero);
+	        } catch (NumberFormatException e) {
+	            // Trata a exceção caso o valor não possa ser convertido para inteiro
+	            e.printStackTrace();  // Pode registrar ou exibir uma mensagem de erro, se necessário
+	        }
+	    }
 
-		clienteDAO.inserir(novoCliente);
-		response.sendRedirect("listar");
+	    novoCliente.setComplemento(request.getParameter("complemento"));
+	    novoCliente.setBairro(request.getParameter("bairro"));
+	    novoCliente.setCidade(request.getParameter("cidade"));
+	    novoCliente.setUf(request.getParameter("uf"));
+
+	    // Inserir o cliente no banco de dados
+	    clienteDAO.inserir(novoCliente);
+	    
+	    // Redireciona para a página de sucesso
+	    response.sendRedirect(request.getContextPath() + "/views/clientes/ClienteSucesso.jsp");
 	}
+
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));

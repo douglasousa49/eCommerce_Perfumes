@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page import="java.util.List" %>
-<%@ page import="br.com.eCommerce_Perfumes.webjbdc.model.Produto" %>
+<%@ page import="br.com.eCommerce_Perfumes.webjbdc.model.Cliente" %>
+<%@ page import="br.com.eCommerce_Perfumes.webjbdc.controller.ClienteController" %>
 
 <%
     // Verificar se o usuário está logado e se possui o papel ADMIN
@@ -104,43 +105,44 @@
 
     <div class="button-container">
         <button class="add-btn" onclick="window.location.href='CadastrarCliente.jsp'">Incluir Novo Cliente</button>
-        <button class="search-btn" onclick="window.location.href='CadastrarCliente.jsp'">Consultar Cliente</button>
-        <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>
+        <button type="button" onclick="window.location.href='../views/Index.jsp'">Página Inicial</button> 
     </div>
 
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Email</th>
-                <th>Telefone</th>
+                <th>Celular</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             <%-- Loop pelos clientes e exibição dos dados --%>
-            <c:forEach items="${clientes}" var="cliente">
-                <tr>
-                    <td>${cliente.id}</td>
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.telefone}</td>
-                    <td>
-                        <button class="action-btn edit-btn"
-                            onclick="window.location.href='CadastrarClientes.jsp'">
-                            Editar
-                        </button>
-                        <button class="action-btn delete-btn"
-                            onclick="window.location.href='CadastrarClientes.jsp'">
-                            Excluir
-                        </button>
-                    </td>
-                </tr>
-            </c:forEach>
+            <c:forEach var="cliente" items="${listaClientes}">
+    	<tr>
+        <td>${cliente.id}</td>
+        <td>${cliente.nome}</td>
+        <td>${cliente.email}</td>
+        <td>${cliente.celular}</td>
+        <td>
+            <button class="action-btn edit-btn"
+        		onclick="window.location.href='/eCommerce_Perfumes/clientes/editar?id=${cliente.id}'">
+    		Editar
+			</button>
+			<button class="action-btn delete-btn"
+        		onclick="window.location.href='/eCommerce_Perfumes/clientes/excluir?id=${cliente.id}'">
+   			 Excluir
+			</button>
 
+        </td>
+    	</tr>
+		</c:forEach>
+
+            <%-- Caso não existam clientes --%>
             <%
-                List<Produto> clientes = (List<Produto>) request.getAttribute("clientes");
+                List<Cliente> clientes = (List<Cliente>) request.getAttribute("clientes");
                 if (clientes == null || clientes.isEmpty()) {
             %>
                 <tr>

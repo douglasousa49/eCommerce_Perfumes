@@ -17,15 +17,15 @@ public class ClienteDAO {
 	    try {
 	        conexao = ConnectionFactory.getConnection();
 
-	        String sql = "INSERT INTO cliente (id_cliente, nome, rg, cpf, email, telefone, celular, cep, endereco, numero, complemento, bairro, cidade, uf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO tb_clientes (nome, rg, cpf, email, senha, telefone, celular, cep, endereco, numero, complemento, bairro, cidade, uf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	        PreparedStatement ps = conexao.prepareStatement(sql);
 
-	        ps.setInt(1, cliente.getId());
-	        ps.setString(2, cliente.getNome());
-	        ps.setString(3, cliente.getRg());
-	        ps.setString(4, cliente.getCpf());
-	        ps.setString(5, cliente.getEmail());
+	        ps.setString(1, cliente.getNome());
+	        ps.setString(2, cliente.getRg());
+	        ps.setString(3, cliente.getCpf());
+	        ps.setString(4, cliente.getEmail());
+	        ps.setString(5, cliente.getSenha());
 	        ps.setString(6, cliente.getTelefone());
 	        ps.setString(7, cliente.getCelular());
 	        ps.setString(8, cliente.getCep());
@@ -64,48 +64,23 @@ public class ClienteDAO {
 
 		try (Connection connection = ConnectionFactory.getConnection();
 
-				PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+			PreparedStatement ps = connection.prepareStatement(sql);
 
-			ResultSet rs = preparedStatement.executeQuery();
+			ResultSet rs = ps.executeQuery()){
 
 			while (rs.next()) {
-
-				int id = rs.getInt("id_cliente");
-				String nome = rs.getString("nome");
-				String rg = rs.getString("rg");
-				String cpf = rs.getString("cpf");
-				String email = rs.getString("email");
-				String telefone = rs.getString("telefone");
-				String celular = rs.getString("celular");
-				String cep = rs.getString("cep");
-				String endereco = rs.getString("endereco");
-				int numero = rs.getInt("numero");
-				String complemento = rs.getString("complemento");
-				String bairro = rs.getString("bairro");
-				String cidade = rs.getString("cidade");
-				String uf = rs.getString("uf");
-
+				
 				Cliente itemLista = new Cliente();
-
-				itemLista.setId(id);
-				itemLista.setNome(nome);
-				itemLista.setRg(rg);
-				itemLista.setCpf(cpf);
-				itemLista.setEmail(email);
-				itemLista.setTelefone(telefone);
-				itemLista.setCelular(celular);
-				itemLista.setCep(cep);
-				itemLista.setEndereco(endereco);
-				itemLista.setNumero(numero);
-				itemLista.setComplemento(complemento);
-				itemLista.setBairro(bairro);
-				itemLista.setCidade(cidade);
-				itemLista.setUf(uf);
+				
+				itemLista.setId(rs.getInt("id"));
+				itemLista.setNome(rs.getString("nome"));
+				itemLista.setEmail(rs.getString("email"));
+				itemLista.setCelular(rs.getString("celular"));
 
 				clientes.add(itemLista);
-			}
+				}
 
-		} catch (SQLException e) {
+			} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -117,7 +92,7 @@ public class ClienteDAO {
 		try {
 
 			conexao = ConnectionFactory.getConnection();
-			String sql = "DELETE FROM cliente WHERE id_cliente = ?";
+			String sql = "DELETE FROM tb_clientes WHERE id = ?";
 
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setInt(1, id);
@@ -186,7 +161,7 @@ public class ClienteDAO {
 	
 	public Cliente buscarPorId(int id) {
 	    Cliente cliente = null;
-	    String sql = "SELECT * FROM tb_clientes WHERE id_cliente = ?";
+	    String sql = "SELECT * FROM tb_clientes WHERE id = ?";
 
 	    try (Connection connection = ConnectionFactory.getConnection();
 	         PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -196,7 +171,7 @@ public class ClienteDAO {
 	        try (ResultSet rs = ps.executeQuery()) {
 	            if (rs.next()) {
 	                cliente = new Cliente();
-	                cliente.setId(rs.getInt("id_cliente"));
+	                cliente.setId(rs.getInt("id"));
 	                cliente.setNome(rs.getString("nome"));
 	                cliente.setRg(rs.getString("rg"));
 	                cliente.setCpf(rs.getString("cpf"));

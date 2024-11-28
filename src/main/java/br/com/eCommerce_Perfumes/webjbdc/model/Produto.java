@@ -3,7 +3,7 @@ package br.com.eCommerce_Perfumes.webjbdc.model;
 public class Produto {
 
     private int codigoProduto;
-    private String nome;
+    private String nomeProduto;
     private String descricao;
     private double preco;
     private int estoque;
@@ -16,12 +16,12 @@ public class Produto {
         this.codigoProduto = codigoProduto;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public String getDescricao() {

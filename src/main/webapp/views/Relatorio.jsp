@@ -70,8 +70,7 @@
         <thead>
             <tr>
                 <th>Cliente</th>
-                <th>Produto</th>
-                <th>Quantidade</th>
+                <th>Pedido</th>
                 <th>Valor Total</th>
             </tr>
         </thead>

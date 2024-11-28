@@ -8,8 +8,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/mysql-conector-j-9.0.0/mysql-connector-j-9.0.0/mysql-connector-j-9.0.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/jakarta.servlet-api-5.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/glassfish-7.0.0-M8.zip"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/apache-tomcat-10.1.24">
 		<attributes>
@@ -21,5 +19,7 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/jstl-impl-1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/jstl-1.1.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/standard-1.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/mysql-conector-j-9.0.0/mysql-connector-j-9.0.0/mysql-connector-j-9.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Douglas De Sousa/Downloads/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

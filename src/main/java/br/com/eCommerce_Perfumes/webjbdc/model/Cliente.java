@@ -7,6 +7,7 @@ public class Cliente {
 	private String rg;
 	private String cpf;
 	private String email;
+	private String senha;
 	private String telefone;
 	private String celular;
 	private String cep;
@@ -50,6 +51,13 @@ public class Cliente {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 	public String getTelefone() {

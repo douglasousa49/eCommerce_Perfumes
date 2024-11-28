@@ -12,13 +12,13 @@ public class ProdutoDAO {
 
     public boolean inserir(Produto produto) {
         boolean resultado = false;
-        String sql = "INSERT INTO produto (codigo_produto, nome, descricao, preco, estoque) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_produtos (codigoProduto, nomeProduto, descricao, preco, estoque) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql)) {
              
             ps.setInt(1, produto.getCodigoProduto());
-            ps.setString(2, produto.getNome());
+            ps.setString(2, produto.getNomeProduto());
             ps.setString(3, produto.getDescricao());
             ps.setDouble(4, produto.getPreco());
             ps.setInt(5, produto.getEstoque());
@@ -32,7 +32,7 @@ public class ProdutoDAO {
 
     public ArrayList<Produto> listar() {
         ArrayList<Produto> produtos = new ArrayList<>();
-        String sql = "SELECT * FROM produto";
+        String sql = "SELECT * FROM tb_produto";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class ProdutoDAO {
             while (rs.next()) {
                 Produto produto = new Produto();
                 produto.setCodigoProduto(rs.getInt("codigo_produto"));
-                produto.setNome(rs.getString("nome"));
+                produto.setNomeProduto(rs.getString("nomeProduto"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setEstoque(rs.getInt("estoque"));
@@ -75,7 +75,7 @@ public class ProdutoDAO {
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql)) {
              
-            ps.setString(1, produto.getNome());
+            ps.setString(1, produto.getNomeProduto());
             ps.setString(2, produto.getDescricao());
             ps.setDouble(3, produto.getPreco());
             ps.setInt(4, produto.getEstoque());
@@ -101,7 +101,7 @@ public class ProdutoDAO {
                 if (rs.next()) {
                     produto = new Produto();
                     produto.setCodigoProduto(rs.getInt("codigo_produto"));
-                    produto.setNome(rs.getString("nome"));
+                    produto.setNomeProduto(rs.getString("nomeProduto"));
                     produto.setDescricao(rs.getString("descricao"));
                     produto.setPreco(rs.getDouble("preco"));
                     produto.setEstoque(rs.getInt("estoque"));
