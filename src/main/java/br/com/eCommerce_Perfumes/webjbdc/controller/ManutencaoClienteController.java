@@ -29,13 +29,13 @@ public class ManutencaoClienteController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            listar(request, response);
+            listarManutencao(request, response);
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
     }
 
-    protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+    protected void listarManutencao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         ArrayList<Cliente> Clientes = clienteDAO.listarManutencao(); // Obtenha a lista
         request.setAttribute("listaClientes", Clientes); // Atribua ao request
         RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/ManutencaoCliente.jsp"); // Caminho para a JSP

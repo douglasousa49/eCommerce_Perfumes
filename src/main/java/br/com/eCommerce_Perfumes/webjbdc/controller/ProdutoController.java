@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.Part;
 import br.com.eCommerce_Perfumes.webjbdc.dao.ProdutoDAO;
 import br.com.eCommerce_Perfumes.webjbdc.model.Produto;
 
@@ -59,34 +59,62 @@ public class ProdutoController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getServletPath();
-        try {
-            if ("/produtos/novo".equals(action)) {
-                inserir(request, response);
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
-        }
-    }
+	        throws ServletException, IOException {
+	    String action = request.getServletPath();
+
+	    try {
+	        switch (action) {
+	            case "/produtos/novo":
+	                inserir(request, response);
+	                break;
+	            case "/produtos/listar":
+	                listar(request, response);
+	                break;
+	            case "/produtos/excluir":
+	                excluir(request, response);
+	                break;
+	            case "/produtos/editar":
+	                editarForm(request, response);
+	                break;
+	            case "/produtos/update":
+	                update(request, response);
+	                break;
+	            default:
+	                listar(request, response);
+	                break;
+	        }
+	    } catch (SQLException ex) {
+	        throw new ServletException(ex);
+	    }
+	}
 
     private void listar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         ArrayList<Produto> listaProdutos = produtoDAO.listar();
         request.setAttribute("listaProdutos", listaProdutos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/produtos/produto-listar.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/produtos/ProdutoListar.jsp");
         dispatcher.forward(request, response);
     }
 
     private void editarForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
+        // Recebimento do id que será editado
         int id = Integer.parseInt(request.getParameter("codigoProduto"));
+        
+        // Setar a variável Produto
         Produto produto = produtoDAO.buscarPorId(id);
-        request.setAttribute("produto", produto);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/produtos/produto-cadastro.jsp");
+        
+        // Passar o produto para o request como atributos
+        request.setAttribute("codigoProduto", produto.getCodigoProduto());
+        request.setAttribute("nomeProduto", produto.getNomeProduto());
+        request.setAttribute("descricao", produto.getDescricao());
+        request.setAttribute("preco", produto.getPreco());
+        request.setAttribute("estoque", produto.getEstoque());
+        
+        // Redirecionar para o JSP
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/produtos/ProdutoEditar.jsp");
         dispatcher.forward(request, response);
     }
-
     private void inserir(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
     	
     	int codigoProduto = Integer.parseInt(request.getParameter("codigoProduto"));
@@ -108,12 +136,14 @@ public class ProdutoController extends HttpServlet {
     }
 
     private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int codigoProduto = Integer.parseInt(request.getParameter("codigoProduto"));
+        // Obter os dados do formulário
+        int codigoProduto = Integer.parseInt(request.getParameter("codigoProduto")); // Corrigido para o nome correto
         String nomeProduto = request.getParameter("nomeProduto");
         String descricao = request.getParameter("descricao");
         double preco = Double.parseDouble(request.getParameter("preco"));
         int estoque = Integer.parseInt(request.getParameter("estoque"));
 
+        // Criar um objeto Produto com os novos valores
         Produto produtoAtualizar = new Produto();
         produtoAtualizar.setCodigoProduto(codigoProduto);
         produtoAtualizar.setNomeProduto(nomeProduto);
@@ -121,8 +151,16 @@ public class ProdutoController extends HttpServlet {
         produtoAtualizar.setPreco(preco);
         produtoAtualizar.setEstoque(estoque);
 
-        produtoDAO.atualizar(produtoAtualizar);
-        response.sendRedirect("listar");
+        // Atualizar o produto no banco de dados
+        boolean sucesso = produtoDAO.atualizar(produtoAtualizar);
+
+        // Verificar se a atualização foi bem-sucedida e redirecionar
+        if (sucesso) {
+            response.sendRedirect(request.getContextPath() + "/produtos/listar");
+        } else {
+            // Se falhou, redirecionar para uma página de erro ou exibir mensagem
+            response.sendRedirect(request.getContextPath() + "/produtos/erro.jsp");
+        }
     }
 
     private void excluir(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {

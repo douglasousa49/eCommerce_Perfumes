@@ -67,10 +67,10 @@
   <servlet-mapping>
     <servlet-name>FinalizarPedidoServlet</servlet-name>
     <url-pattern>/FinalizarPedidoServlet</url-pattern>
-  </servlet-mapping>    
-    <servlet>
+  </servlet-mapping>
+<servlet>
     <servlet-name>ManutencaoClienteController</servlet-name>
-    <servlet-class>br.com.eCommerce_Perfumes.controller.ManutencaoClienteController</servlet-class>
+    <servlet-class>br.com.eCommerce_Perfumes.webjbdc.controller.ManutencaoClienteController</servlet-class>
 </servlet>
 <servlet-mapping>
     <servlet-name>ManutencaoClienteController</servlet-name>

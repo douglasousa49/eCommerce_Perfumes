@@ -80,5 +80,7 @@
             </tbody>
         </table>
     </form>
+    
+    <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>
 </body>
 </html>

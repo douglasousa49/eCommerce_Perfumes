@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
     String userRole = (String) session.getAttribute("userRole");
@@ -106,31 +107,50 @@
     <h1>Manutenção de Clientes</h1>
 
     <div class="button-container">
-        <button class="add-btn" onclick="window.location.href='CadastrarCliente.jsp'">Incluir Novo Cliente</button>
+        <button class="add-btn" onclick="window.location.href='<%=request.getContextPath()%>/views/clientes/CadastrarCliente.jsp'">Incluir Novo Cliente</button>
         <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button> 
     </div>
-	<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Celular</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Celular</th>
+                <th>CEP</th>
+                <th>Endereço</th>
+                <th>Número</th>
+                <th>Complemento</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>UF</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
             <c:forEach var="cliente" items="${listaClientes}">
                 <tr>
                     <td>${cliente.id}</td>
                     <td>${cliente.nome}</td>
                     <td>${cliente.email}</td>
+                    <td>${cliente.telefone}</td>
                     <td>${cliente.celular}</td>
+                    <td>${cliente.cep}</td>
+                    <td>${cliente.endereco}</td>
+                    <td>${cliente.numero}</td>
+                    <td>${cliente.complemento}</td>
+                    <td>${cliente.bairro}</td>
+                    <td>${cliente.cidade}</td>
+                    <td>${cliente.uf}</td>
                     <td>
-                        <button class="action-btn edit-btn"
-                                onclick="window.location.href='/eCommerce_Perfumes/clientes/editar?id=${cliente.id}'">
-                            Editar
-                        </button>
+                    
+                    	<form action="/eCommerce_Perfumes/clientes/editar" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="${cliente.id}">
+                            <button class="action-btn edit-btn">Editar</button>
+                        </form>
+        			
                         <form action="/eCommerce_Perfumes/clientes/excluir" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="${cliente.id}">
                             <button class="action-btn delete-btn">Excluir</button>
@@ -139,9 +159,9 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td colspan="5" style="text-align:center;">Nenhum cliente encontrado.</td>
+                <td colspan="14" style="text-align:center;">Nenhum cliente encontrado.</td>
             </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 </body>
 </html>

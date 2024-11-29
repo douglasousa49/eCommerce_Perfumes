@@ -32,7 +32,7 @@ public class ProdutoDAO {
 
     public ArrayList<Produto> listar() {
         ArrayList<Produto> produtos = new ArrayList<>();
-        String sql = "SELECT * FROM tb_produtos";
+        String sql = "SELECT * FROM tb_produtos"; // Ajustado para a tabela correta
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class ProdutoDAO {
              
             while (rs.next()) {
                 Produto produto = new Produto();
-                produto.setCodigoProduto(rs.getInt("codigo_produto"));
+                produto.setCodigoProduto(rs.getInt("codigoProduto"));
                 produto.setNomeProduto(rs.getString("nomeProduto"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPreco(rs.getDouble("preco"));
@@ -55,7 +55,7 @@ public class ProdutoDAO {
 
     public boolean excluir(int codigoProduto) {
         boolean resultado = false;
-        String sql = "DELETE FROM produto WHERE codigo_produto = ?";
+        String sql = "DELETE FROM tb_produtos WHERE codigoProduto = ?"; // Ajustado para a tabela correta
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -70,7 +70,7 @@ public class ProdutoDAO {
 
     public boolean atualizar(Produto produto) {
         boolean resultado = false;
-        String sql = "UPDATE produto SET nome=?, descricao=?, preco=?, estoque=? WHERE codigo_produto=?";
+        String sql = "UPDATE tb_produtos SET nomeProduto=?, descricao=?, preco=?, estoque=? WHERE codigoProduto=?"; // Ajustado para a tabela correta
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -90,7 +90,7 @@ public class ProdutoDAO {
 
     public Produto buscarPorId(int codigoProduto) {
         Produto produto = null;
-        String sql = "SELECT * FROM produto WHERE codigo_produto = ?";
+        String sql = "SELECT * FROM tb_produtos WHERE codigoProduto = ?";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -100,7 +100,7 @@ public class ProdutoDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     produto = new Produto();
-                    produto.setCodigoProduto(rs.getInt("codigo_produto"));
+                    produto.setCodigoProduto(rs.getInt("codigoProduto"));
                     produto.setNomeProduto(rs.getString("nomeProduto"));
                     produto.setDescricao(rs.getString("descricao"));
                     produto.setPreco(rs.getDouble("preco"));

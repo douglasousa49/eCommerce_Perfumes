@@ -108,10 +108,10 @@
 <body>
     <h1>Manutenção de Produtos</h1>
 
-    <div class="button-container">
-        <button class="add-btn" onclick="window.location.href='CadastrarProduto.jsp'">Incluir Novo Produto</button>
-        <button class="search-btn" onclick="window.location.href='CadastrarProduto.jsp'">Consultar Produto</button>
-        <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button>		
+    <<div class="button-container">
+        <button class="add-btn" onclick="window.location.href='<%=request.getContextPath()%>/views/produtos/CadastrarProduto.jsp'">Incluir Novo Produto</button>
+        <button class="search-btn" onclick="window.location.href='<%=request.getContextPath()%>/views/produtos/CadastrarProduto.jsp'">Consultar Produto</button>
+        <button type="button" onclick="window.location.href='<%=request.getContextPath()%>/Index.jsp'">Página Inicial</button>		
     </div>
 
     <table>
@@ -126,8 +126,8 @@
             </tr>
         </thead>
         <tbody>
-            <%-- Loop pelos clientes e exibição dos dados --%>
-            <c:forEach items="${produto}" var="produto">
+            <!-- Loop para exibir os produtos -->
+            <c:forEach var="produto" items="${listaProdutos}">
                 <tr>
                     <td>${produto.codigoProduto}</td>
                     <td>${produto.nomeProduto}</td>
@@ -135,14 +135,15 @@
                     <td>${produto.quantidade}</td>
                     <td>${produto.preco}</td>
                     <td>
+                        <!-- Botões de ação: Editar e Excluir -->
                         <button class="action-btn edit-btn"
-                            onclick="window.location.href='CadastrarClientes.jsp'">
+                            onclick="window.location.href='<%=request.getContextPath()%>/views/produtos/EditarProduto.jsp?codigoProduto=${produto.codigoProduto}'">
                             Editar
                         </button>
-                        <button class="action-btn delete-btn"
-                            onclick="window.location.href='CadastrarClientes.jsp'">
-                            Excluir
-                        </button>
+                        <form action="<%=request.getContextPath()%>/produtos/excluir" method="post" style="display:inline;">
+                            <input type="hidden" name="codigoProduto" value="${produto.codigoProduto}">
+                            <button class="action-btn delete-btn">Excluir</button>
+                        </form>
                     </td>
                 </tr>
             </c:forEach>
@@ -152,7 +153,7 @@
                 if (produtos == null || produtos.isEmpty()) {
             %>
                 <tr>
-                    <td colspan="5" style="text-align:center;">Nenhum produto encontrado.</td>
+                    <td colspan="6" style="text-align:center;">Nenhum produto encontrado.</td>
                 </tr>
             <%
                 }
