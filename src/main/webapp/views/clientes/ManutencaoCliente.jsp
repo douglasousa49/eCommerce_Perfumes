@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jakarta.servlet.http.HttpSession" %>
-<%@ page import="java.util.List" %>
-<%@ page import="br.com.eCommerce_Perfumes.webjbdc.model.Cliente" %>
-<%@ page import="br.com.eCommerce_Perfumes.webjbdc.controller.ClienteController" %>
 
 <%
-    // Verificar se o usuário está logado e se possui o papel ADMIN
     String userRole = (String) session.getAttribute("userRole");
-    if (!"ADMIN".equals(userRole)) {
-        // Redireciona para uma página de erro ou de login se não for ADMIN
+    String userName = (String) session.getAttribute("userName");
+%>
+
+<%
+    // Verifica se a sessão existe
+    session = request.getSession(false);
+    if (session == null || !"ADMIN".equals(session.getAttribute("userRole"))) {
+        // Redireciona para uma página de erro se o usuário não for ADMIN
         response.sendRedirect("error.jsp");
-        return; // Para garantir que a execução pare aqui
+        return; // Garante que o código após isso não seja executado
     }
 %>
 
@@ -105,53 +107,41 @@
 
     <div class="button-container">
         <button class="add-btn" onclick="window.location.href='CadastrarCliente.jsp'">Incluir Novo Cliente</button>
-        <button type="button" onclick="window.location.href='../views/Index.jsp'">Página Inicial</button> 
+        <button type="button" onclick="window.location.href='../Index.jsp'">Página Inicial</button> 
     </div>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Celular</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <%-- Loop pelos clientes e exibição dos dados --%>
+	<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Celular</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
             <c:forEach var="cliente" items="${listaClientes}">
-    	<tr>
-        <td>${cliente.id}</td>
-        <td>${cliente.nome}</td>
-        <td>${cliente.email}</td>
-        <td>${cliente.celular}</td>
-        <td>
-            <button class="action-btn edit-btn"
-        		onclick="window.location.href='/eCommerce_Perfumes/clientes/editar?id=${cliente.id}'">
-    		Editar
-			</button>
-			<button class="action-btn delete-btn"
-        		onclick="window.location.href='/eCommerce_Perfumes/clientes/excluir?id=${cliente.id}'">
-   			 Excluir
-			</button>
-
-        </td>
-    	</tr>
-		</c:forEach>
-
-            <%-- Caso não existam clientes --%>
-            <%
-                List<Cliente> clientes = (List<Cliente>) request.getAttribute("clientes");
-                if (clientes == null || clientes.isEmpty()) {
-            %>
                 <tr>
-                    <td colspan="5" style="text-align:center;">Nenhum cliente encontrado.</td>
+                    <td>${cliente.id}</td>
+                    <td>${cliente.nome}</td>
+                    <td>${cliente.email}</td>
+                    <td>${cliente.celular}</td>
+                    <td>
+                        <button class="action-btn edit-btn"
+                                onclick="window.location.href='/eCommerce_Perfumes/clientes/editar?id=${cliente.id}'">
+                            Editar
+                        </button>
+                        <form action="/eCommerce_Perfumes/clientes/excluir" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="${cliente.id}">
+                            <button class="action-btn delete-btn">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
-            <%
-                }
-            %>
-        </tbody>
-    </table>
+            </c:forEach>
+            <tr>
+                <td colspan="5" style="text-align:center;">Nenhum cliente encontrado.</td>
+            </tr>
+    </tbody>
+</table>
 </body>
 </html>

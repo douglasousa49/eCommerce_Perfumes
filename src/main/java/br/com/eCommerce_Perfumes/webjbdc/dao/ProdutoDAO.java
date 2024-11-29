@@ -32,7 +32,7 @@ public class ProdutoDAO {
 
     public ArrayList<Produto> listar() {
         ArrayList<Produto> produtos = new ArrayList<>();
-        String sql = "SELECT * FROM tb_produto";
+        String sql = "SELECT * FROM tb_produtos";
 
         try (Connection conexao = ConnectionFactory.getConnection();
              PreparedStatement ps = conexao.prepareStatement(sql);

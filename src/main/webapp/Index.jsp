@@ -88,15 +88,15 @@
             <div class="dropdown">
                 <span class="menu-item">Cliente</span>
                 <ul class="dropdown-menu">
-                    <li><a href="views/clientes/ManutencaoCliente.jsp">Manutenção de Clientes</a></li>
-                    <li><a href="views/clientes/ClienteListar.jsp">Listar Clientes</a></li>
+                    <li><a href="${pageContext.request.contextPath}/clientes/manutencao">Manutenção de Clientes</a></li>
+                    <li><a href="${pageContext.request.contextPath}/clientes/listar">Listar Clientes</a></li>
                 </ul>
             </div>
             <div class="dropdown">
                 <span class="menu-item">Produto</span>
                 <ul class="dropdown-menu">
                     <li><a href="views/produtos/CadastrarProduto.jsp">Cadastrar Produtos</a></li>
-                    <li><a href="views/produtos/ManutencaoProduto.jsp">Manutenção de Produtos</a></li>
+                    <li><a href="${pageContext.request.contextPath}/produtos/listar">Manutenção de Produtos</a></li>
                 </ul>
             </div>
 

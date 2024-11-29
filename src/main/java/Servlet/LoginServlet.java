@@ -1,11 +1,5 @@
 package Servlet;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.com.eCommerce_Perfumes.webjbdc.utils.ConnectionFactory;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
@@ -24,17 +24,23 @@ public class LoginServlet extends HttpServlet {
         String senha = req.getParameter("senha");
 
         if (isAdmin(email, senha)) {
+            // Configura a sessão para o ADMIN
             HttpSession session = req.getSession();
             session.setAttribute("userRole", "ADMIN");
-            resp.sendRedirect(req.getContextPath() + "/Index.jsp"); // Redireciona para a página principal
-            
-        } else if (isClient(email, senha)) {
-            HttpSession session = req.getSession();
-            session.setAttribute("userRole", "CLIENT");
-            resp.sendRedirect(req.getContextPath() + "/Index.jsp"); // Redireciona para a página principal
+            session.setAttribute("userName", "ADMIN"); // Nome fixo para o administrador
+            resp.sendRedirect(req.getContextPath() + "/Index.jsp");
             
         } else {
-            resp.sendRedirect(req.getContextPath() + "/views/Login.jsp?error=true");
+            // Valida o cliente e obtém o nome
+            String userName = getClientName(email, senha);
+            if (userName != null) {
+                HttpSession session = req.getSession();
+                session.setAttribute("userRole", "CLIENT");
+                session.setAttribute("userName", userName); // Nome obtido do banco de dados
+                resp.sendRedirect(req.getContextPath() + "/Index.jsp");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/views/Login.jsp?error=true");
+            }
         }
     }
 
@@ -42,19 +48,19 @@ public class LoginServlet extends HttpServlet {
         String adminEmail = "admin@cosmeticos.com";
         String adminSenha = "adm123";
         return email.equals(adminEmail) && senha.equals(adminSenha);
-    } 
+    }
 
-    private boolean isClient(String email, String senha) {
-        boolean isValidClient = false;
+    private String getClientName(String email, String senha) {
+        String userName = null;
 
         try (Connection connection = ConnectionFactory.getConnection()) {
-            String sql = "SELECT COUNT(*) FROM tb_clientes WHERE email = ? AND senha = ?";
+            String sql = "SELECT nome FROM tb_clientes WHERE email = ? AND senha = ?";
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setString(1, email);
                 stmt.setString(2, senha);
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-                        isValidClient = rs.getInt(1) > 0;
+                        userName = rs.getString("nome");
                     }
                 }
             }
@@ -62,6 +68,6 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        return isValidClient;
+        return userName; // Retorna null se o cliente não for encontrado
     }
 }

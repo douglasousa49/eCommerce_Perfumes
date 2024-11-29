@@ -56,35 +56,68 @@ public class ClienteDAO {
 	}
 
 
+	public ArrayList<Cliente> listarManutencao() {
+		
+	    ArrayList<Cliente> clientes = new ArrayList<>();
+	    
+	    String sql = "SELECT id, nome, email, celular FROM tb_clientes";
+	    
+	    try (Connection connection = ConnectionFactory.getConnection();
+	         PreparedStatement ps = connection.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        while (rs.next()) {
+	            Cliente client = new Cliente();
+	            
+	            client.setId(rs.getInt("id"));
+	            client.setNome(rs.getString("nome"));
+	            client.setEmail(rs.getString("email"));
+	            client.setCelular(rs.getString("celular"));
+	            
+	            clientes.add(client);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return clientes;
+	}
+	
 	public ArrayList<Cliente> listar() {
+	    ArrayList<Cliente> clientes = new ArrayList<>();
+	    String sql = "SELECT * FROM tb_clientes";
 
-		ArrayList<Cliente> clientes = new ArrayList<>();
+	    try (Connection connection = ConnectionFactory.getConnection();
+	         PreparedStatement ps = connection.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
 
-		String sql = "SELECT * FROM tb_clientes";
+	        while (rs.next()) {
+	        	
+	            Cliente client = new Cliente();
+	            
+	            client.setId(rs.getInt("id"));
+	            client.setNome(rs.getString("nome"));
+	            client.setRg(rs.getString("rg"));
+	            client.setCpf(rs.getString("cpf"));
+	            client.setEmail(rs.getString("email"));
+	            client.setSenha(rs.getString("senha"));
+	            client.setTelefone(rs.getString("telefone"));
+	            client.setCelular(rs.getString("celular"));
+	            client.setCep(rs.getString("cep"));
+	            client.setEndereco(rs.getString("endereco"));
+	            client.setNumero(rs.getInt("numero"));
+	            client.setComplemento(rs.getString("complemento"));
+	            client.setBairro(rs.getString("bairro"));
+	            client.setCidade(rs.getString("cidade"));
+	            client.setUf(rs.getString("uf"));
+	            
+	            clientes.add(client);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 
-		try (Connection connection = ConnectionFactory.getConnection();
-
-			PreparedStatement ps = connection.prepareStatement(sql);
-
-			ResultSet rs = ps.executeQuery()){
-
-			while (rs.next()) {
-				
-				Cliente itemLista = new Cliente();
-				
-				itemLista.setId(rs.getInt("id"));
-				itemLista.setNome(rs.getString("nome"));
-				itemLista.setEmail(rs.getString("email"));
-				itemLista.setCelular(rs.getString("celular"));
-
-				clientes.add(itemLista);
-				}
-
-			} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return clientes;
+	    return clientes;
 	}
 
 	public boolean excluir(int id) {
@@ -121,24 +154,23 @@ public class ClienteDAO {
 		try {
 			conexao = ConnectionFactory.getConnection();
 			
-			String sql = "UPDATE cliente SET nome=?, rg=?, cpf=?, email=?, telefone=?, celular=?, cep=?,"
-					+ " endereco=?, numero=?, complemento=?, bairro=?, uf=? WHERE id_cliente = ?";
+			String sql = "UPDATE tb_clientes SET nome=?, rg=?, cpf=?, email=?, telefone=?, celular=?, cep=?, "
+		             + "endereco=?, numero=?, complemento=?, bairro=?, uf=? WHERE id = ?";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.setString(1, clienteAtualizar.getNome());
+		ps.setString(2, clienteAtualizar.getRg());
+		ps.setString(3, clienteAtualizar.getCpf());
+		ps.setString(4, clienteAtualizar.getEmail());
+		ps.setString(5, clienteAtualizar.getTelefone());
+		ps.setString(6, clienteAtualizar.getCelular());
+		ps.setString(7, clienteAtualizar.getCep());
+		ps.setString(8, clienteAtualizar.getEndereco());
+		ps.setInt(9, clienteAtualizar.getNumero());
+		ps.setString(10, clienteAtualizar.getComplemento());
+		ps.setString(11, clienteAtualizar.getBairro());
+		ps.setString(12, clienteAtualizar.getUf());
+		ps.setInt(13, clienteAtualizar.getId());
 
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			
-			ps.setInt(1, clienteAtualizar.getId());
-			ps.setString(2, clienteAtualizar.getNome());
-			ps.setString(3, clienteAtualizar.getRg());
-			ps.setString(4, clienteAtualizar.getCpf());
-			ps.setString(5, clienteAtualizar.getEmail());
-			ps.setString(6, clienteAtualizar.getTelefone());
-			ps.setString(7, clienteAtualizar.getCelular());
-			ps.setString(8, clienteAtualizar.getCep());
-			ps.setString(9, clienteAtualizar.getEndereco());
-			ps.setInt(10, clienteAtualizar.getNumero());
-			ps.setString(11, clienteAtualizar.getComplemento());
-			ps.setString(12, clienteAtualizar.getBairro());
-			ps.setString(13, clienteAtualizar.getUf());
 			
 			int linhasAfetadas = ps.executeUpdate();
 			

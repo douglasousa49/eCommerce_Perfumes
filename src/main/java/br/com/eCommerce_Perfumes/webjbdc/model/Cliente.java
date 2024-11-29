@@ -18,6 +18,10 @@ public class Cliente {
 	private String cidade;
 	private String uf;
 	
+	public Cliente() {
+		
+	}
+	
 	public int getId() {
 		return id;
 	}

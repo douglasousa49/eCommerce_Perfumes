@@ -7,6 +7,10 @@ public class Produto {
     private String descricao;
     private double preco;
     private int estoque;
+    
+    public Produto() {
+		
+	}
 
     public int getCodigoProduto() {
         return codigoProduto;

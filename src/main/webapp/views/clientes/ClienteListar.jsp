@@ -1,41 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="br.com.eCommerce_Perfumes.webjbdc.model.Cliente" %>
 
-
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Lista de Clientes</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/estilos.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h2>Lista de Clientes</h2>
-    <table class="cliente-tabela">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>AÃ§Ãµes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="cliente" items="${listaClientes}">
+    <h1>Lista de Clientes</h1>
+    <form action="<%=request.getContextPath()%>/clientes/listar" method="post" onsubmit="return validarSenha()">
+        <table>
+            <thead>
                 <tr>
-                    <td>${cliente.id}</td>
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.celular}</td>
-                    <td>
-                        <a href="cliente-editar?id=${cliente.id}" class="botao-editar">Editar</a>
-                        <a href="cliente-excluir?id=${cliente.id}" class="botao-excluir">Excluir</a>
-                    </td>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>RG</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Celular</th>
+                    <th>CEP</th>
+                    <th>Endereço</th>
+                    <th>Número</th>
+                    <th>Complemento</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>UF</th>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-    <br>
-    <a href="${pageContext.request.contextPath}/views/clientes/cliente-cadastro.jsp">Novo Cliente</a>
+            </thead>
+            <tbody>
+                <%
+                    // Recuperando a lista de clientes
+                    @SuppressWarnings("unchecked")
+                    ArrayList<Cliente> listaClientes = (ArrayList<Cliente>) request.getAttribute("listaClientes");
+
+                    // Iterando sobre a lista de clientes
+                    if (listaClientes != null && !listaClientes.isEmpty()) {
+                        for (Cliente cliente : listaClientes) {
+                %>
+                    <tr>
+                        <td><%= cliente.getId() %></td>
+                        <td><%= cliente.getNome() %></td>
+                        <td><%= cliente.getRg() %></td>
+                        <td><%= cliente.getCpf() %></td>
+                        <td><%= cliente.getEmail() %></td>
+                        <td><%= cliente.getTelefone() %></td>
+                        <td><%= cliente.getCelular() %></td>
+                        <td><%= cliente.getCep() %></td>
+                        <td><%= cliente.getEndereco() %></td>
+                        <td><%= cliente.getNumero() %></td>
+                        <td><%= cliente.getComplemento() %></td>
+                        <td><%= cliente.getBairro() %></td>
+                        <td><%= cliente.getCidade() %></td>
+                        <td><%= cliente.getUf() %></td>
+                    </tr>
+                <%
+                        }
+                    } else {
+                %>
+                    <tr>
+                        <td colspan="14">Nenhum cliente encontrado.</td>
+                    </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+    </form>
 </body>
 </html>

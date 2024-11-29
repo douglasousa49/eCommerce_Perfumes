@@ -148,11 +148,11 @@
             </c:forEach>
 
             <%
-                List<Produto> clientes = (List<Produto>) request.getAttribute("clientes");
-                if (clientes == null || clientes.isEmpty()) {
+                List<Produto> produtos = (List<Produto>) request.getAttribute("produtos");
+                if (produtos == null || produtos.isEmpty()) {
             %>
                 <tr>
-                    <td colspan="5" style="text-align:center;">Nenhum cliente encontrado.</td>
+                    <td colspan="5" style="text-align:center;">Nenhum produto encontrado.</td>
                 </tr>
             <%
                 }

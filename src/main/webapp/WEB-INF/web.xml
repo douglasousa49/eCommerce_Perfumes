@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
   <display-name>eCommerce_Perfumes</display-name>
   <welcome-file-list>
     <welcome-file>Index.jsp</welcome-file>
@@ -63,5 +67,13 @@
   <servlet-mapping>
     <servlet-name>FinalizarPedidoServlet</servlet-name>
     <url-pattern>/FinalizarPedidoServlet</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>    
+    <servlet>
+    <servlet-name>ManutencaoClienteController</servlet-name>
+    <servlet-class>br.com.eCommerce_Perfumes.controller.ManutencaoClienteController</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ManutencaoClienteController</servlet-name>
+    <url-pattern>/clientes/manutencao</url-pattern>
+</servlet-mapping>
 </web-app>

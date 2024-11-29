@@ -2,7 +2,7 @@ package br.com.eCommerce_Perfumes.webjbdc.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +16,7 @@ import br.com.eCommerce_Perfumes.webjbdc.model.Cliente;
 
 @WebServlet(name = "clientes", urlPatterns = { "/clientes", "/clientes/novo", "/clientes/editar", "/clientes/update",
 		"/clientes/excluir", "/clientes/listar" })
+
 public class ClienteController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -60,25 +61,44 @@ public class ClienteController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String action = request.getServletPath();
-		try {
-			if ("/clientes/novo".equals(action)) {
-				inserir(request, response);
-			}
-		} catch (SQLException ex) {
-			throw new ServletException(ex);
-		}
-	}
+	        throws ServletException, IOException {
+	    String action = request.getServletPath();
 
+	    try {
+	        switch (action) {
+	            case "/clientes/novo":
+	                inserir(request, response);
+	                break;
+	            case "/clientes/listar":
+	                listar(request, response);
+	                break;
+	            case "/clientes/excluir":
+	                excluir(request, response);
+	                break;
+	            case "/clientes/editar":
+	                editarForm(request, response);
+	                break;
+	            case "/clientes/update":
+	                update(request, response);
+	                break;
+	            default:
+	                listar(request, response);
+	                break;
+	        }
+	    } catch (SQLException ex) {
+	        throw new ServletException(ex);
+	    }
+	}
+	
 	protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    ClienteDAO clienteDAO = new ClienteDAO();
-	    List<Cliente> listaClientes = clienteDAO.listar(); // Obtenha a lista
-	    request.setAttribute("listaClientes", listaClientes); // Atribua ao request
-	    RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/ManutencaoCliente.jsp"); // Caminho para a JSP
-	    dispatcher.forward(request, response); // Encaminhe para a página
-	}
+	    
+	    ArrayList<Cliente> listaClientes = clienteDAO.listar(); // Obtenha a lista
+	    
+	    request.setAttribute("listaClientes", listaClientes);
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/ClienteListar.jsp");
+	    dispatcher.forward(request, response);
 
+	}
 
 	private void editarForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
@@ -86,7 +106,7 @@ public class ClienteController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Cliente clienteAlterar = clienteDAO.buscarPorId(id);
 		request.setAttribute("cliente", clienteAlterar);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/CadastrarCliente.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/views/clientes/ClienteEditar.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -146,6 +166,7 @@ public class ClienteController extends HttpServlet {
 		String uf = request.getParameter("uf");
 
 		Cliente clienteAtualizar = new Cliente();
+		
 		clienteAtualizar.setId(id);
 		clienteAtualizar.setNome(nome);
 		clienteAtualizar.setRg(rg);
